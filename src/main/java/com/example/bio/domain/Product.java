@@ -10,7 +10,8 @@ public class Product {
     @GeneratedValue
     private Long id;
     private String name;
+
+    private Long amount;
     private Long price;
-    private String brand;
     private String category;
 }
