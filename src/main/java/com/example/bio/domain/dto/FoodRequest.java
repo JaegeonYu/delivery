@@ -1,15 +1,22 @@
 package com.example.bio.domain.dto;
 
 import com.example.bio.domain.Food;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 public class FoodRequest {
+    @NotBlank
     private String name;
+    @NotBlank
     private Long amount;
+    @NotBlank
     private Long price;
+    @NotBlank
     private String category;
+
     @Builder
     public FoodRequest(String name, Long amount, Long price, String category) {
         this.name = name;
@@ -17,7 +24,8 @@ public class FoodRequest {
         this.price = price;
         this.category = category;
     }
-    public Food toEntity(){
+
+    public Food toEntity() {
         return Food.builder()
                 .name(this.name)
                 .amount(this.amount)

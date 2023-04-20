@@ -1,8 +1,6 @@
 package com.example.bio.domain.dto;
 
 import com.example.bio.domain.Food;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 
