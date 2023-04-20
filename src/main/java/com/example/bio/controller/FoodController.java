@@ -9,6 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
 public class FoodController {
     private final FoodService productService;
 
-    public
 
 }
