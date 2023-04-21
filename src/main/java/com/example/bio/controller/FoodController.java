@@ -37,6 +37,9 @@ public class FoodController {
         return foodService.findById(foodId).toDto();
     }
 
-
+    @DeleteMapping("/{foodId}")
+    public Long delete(@PathVariable Long foodId) throws NotFoundException {
+        return foodService.delete(foodId);
+    }
 
 }
