@@ -1,6 +1,7 @@
 package com.example.bio.controller;
 
 import com.example.bio.domain.Food;
+import com.example.bio.domain.dto.FoodChangeRequest;
 import com.example.bio.domain.dto.FoodRequest;
 import com.example.bio.domain.dto.FoodResponse;
 import com.example.bio.service.FoodService;
@@ -21,25 +22,30 @@ public class FoodController {
     private final FoodService foodService;
 
     @PostMapping()
-    public Long save(@RequestBody @Valid FoodRequest foodRequest) {
+    public Long postFood(@RequestBody @Valid FoodRequest foodRequest) {
         return foodService.save(foodRequest.toEntity());
     }
 
     @GetMapping()
-    public List<FoodResponse> list(){
+    public List<FoodResponse> getFoods(){
         return foodService.findAll().stream()
                 .map(Food::toDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{foodId}")
-    public FoodResponse get(@PathVariable Long foodId) throws NotFoundException {
+    public FoodResponse getFood(@PathVariable Long foodId) throws NotFoundException {
         return foodService.findById(foodId).toDto();
     }
 
     @DeleteMapping("/{foodId}")
-    public Long delete(@PathVariable Long foodId) throws NotFoundException {
+    public Long deleteFood(@PathVariable Long foodId) throws NotFoundException {
         return foodService.delete(foodId);
+    }
+
+    @PatchMapping("/{foodId}")
+    public Long patchFood(@PathVariable Long foodId, @RequestBody FoodChangeRequest foodChangeRequest) throws NotFoundException {
+        return foodService.patch(foodId, foodChangeRequest);
     }
 
 }

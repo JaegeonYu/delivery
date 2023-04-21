@@ -5,14 +5,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.format.annotation.NumberFormat;
 
 @Data
 public class FoodRequest {
     @NotBlank
     private String name;
-    @NotBlank
+    @NotBlank @NumberFormat
     private Long amount;
-    @NotBlank
+    @NotBlank @NumberFormat
     private Long price;
     @NotBlank
     private String category;

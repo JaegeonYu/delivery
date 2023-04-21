@@ -1,5 +1,6 @@
 package com.example.bio.domain;
 
+import com.example.bio.domain.dto.FoodChangeRequest;
 import com.example.bio.domain.dto.FoodResponse;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,5 +32,10 @@ public class Food {
     public FoodResponse toDto() {
         return FoodResponse.builder()
                 .food(this).build();
+    }
+
+    public void patch(FoodChangeRequest foodChangeRequest){
+        this.amount = foodChangeRequest.getAmount();
+        this.price = foodChangeRequest.getPrice();
     }
 }
