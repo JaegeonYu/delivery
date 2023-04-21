@@ -11,9 +11,11 @@ import org.springframework.format.annotation.NumberFormat;
 public class FoodRequest {
     @NotBlank
     private String name;
-    @NotBlank @NumberFormat
+    @NotNull
+    @NumberFormat
     private Long amount;
-    @NotBlank @NumberFormat
+    @NotNull
+    @NumberFormat
     private Long price;
     @NotBlank
     private String category;

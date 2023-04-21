@@ -41,7 +41,7 @@ public class FoodController {
     @GetMapping("/{foodId}")
     public ResponseEntity<FoodResponse> getFood(@PathVariable Long foodId) throws NotFoundException {
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
+                .status(HttpStatus.OK)
                 .body(foodService.findById(foodId).toDto());
     }
 
