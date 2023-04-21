@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.springframework.data.crossstore.ChangeSetPersister.*;
 
 @Service
@@ -17,11 +19,16 @@ public class FoodService {
     }
 
     public Food findById(Long productId) throws NotFoundException {
-        return foodRepositoryRepository.findById(productId).orElseThrow(NotFoundException::new);
+        return foodRepositoryRepository.findById(productId)
+                .orElseThrow(NotFoundException::new);
     }
     @Transactional
     public Long save(Food food) {
         Food saveFood = foodRepositoryRepository.save(food);
         return saveFood.getId();
+    }
+
+    public List<Food> findAll(){
+        return foodRepositoryRepository.findAll();
     }
 }
