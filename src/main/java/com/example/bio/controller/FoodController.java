@@ -7,9 +7,10 @@ import com.example.bio.domain.dto.FoodResponse;
 import com.example.bio.service.FoodService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,30 +23,40 @@ public class FoodController {
     private final FoodService foodService;
 
     @PostMapping()
-    public Long postFood(@RequestBody @Valid FoodRequest foodRequest) {
-        return foodService.save(foodRequest.toEntity());
+    public ResponseEntity<Long> postFood(@RequestBody @Valid FoodRequest foodRequest) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(foodService.save(foodRequest.toEntity()));
     }
 
     @GetMapping()
-    public List<FoodResponse> getFoods(){
-        return foodService.findAll().stream()
+    public ResponseEntity<List<FoodResponse>> getFoods(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(foodService.findAll().stream()
                 .map(Food::toDto)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @GetMapping("/{foodId}")
-    public FoodResponse getFood(@PathVariable Long foodId) throws NotFoundException {
-        return foodService.findById(foodId).toDto();
+    public ResponseEntity<FoodResponse> getFood(@PathVariable Long foodId) throws NotFoundException {
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(foodService.findById(foodId).toDto());
     }
 
     @DeleteMapping("/{foodId}")
-    public Long deleteFood(@PathVariable Long foodId) throws NotFoundException {
-        return foodService.delete(foodId);
+    public ResponseEntity<Long> deleteFood(@PathVariable Long foodId) throws NotFoundException {
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(foodService.delete(foodId));
     }
 
     @PatchMapping("/{foodId}")
-    public Long patchFood(@PathVariable Long foodId, @RequestBody FoodChangeRequest foodChangeRequest) throws NotFoundException {
-        return foodService.patch(foodId, foodChangeRequest);
+    public ResponseEntity<Long> patchFood(@PathVariable Long foodId, @RequestBody FoodChangeRequest foodChangeRequest) throws NotFoundException {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(foodService.patch(foodId, foodChangeRequest));
     }
 
 }
