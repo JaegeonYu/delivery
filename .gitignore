@@ -226,7 +226,7 @@ ehthumbs_vista.db
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
-
+application-dev.yaml
 # Windows Installer files
 *.cab
 *.msi
