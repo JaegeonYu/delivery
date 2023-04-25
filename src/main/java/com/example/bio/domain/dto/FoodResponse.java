@@ -7,9 +7,13 @@ import lombok.Data;
 @Data
 public class FoodResponse {
     private Long id;
+
     private String name;
+
     private Long amount;
+
     private Long price;
+
     private String category;
 
     @Builder

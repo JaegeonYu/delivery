@@ -2,24 +2,32 @@ package com.example.bio.domain;
 
 import com.example.bio.domain.dto.FoodChangeRequest;
 import com.example.bio.domain.dto.FoodResponse;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
+@Table(name = "Foods")
 @Getter
 @NoArgsConstructor
 public class Food {
     @Id
     @GeneratedValue
     private Long id;
+
     private String name;
+
     private Long amount;
+
     private Long price;
+
     private String category;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
+    private List<OrderFood> orderFoods = new ArrayList<>();
 
     @Builder
     public Food(String name, Long amount, Long price, String category) {

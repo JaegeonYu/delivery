@@ -11,12 +11,15 @@ import org.springframework.format.annotation.NumberFormat;
 public class FoodRequest {
     @NotBlank
     private String name;
+
     @NotNull
     @NumberFormat
     private Long amount;
+
     @NotNull
     @NumberFormat
     private Long price;
+
     @NotBlank
     private String category;
 
@@ -30,9 +33,9 @@ public class FoodRequest {
 
     public Food toEntity() {
         return Food.builder()
-                .name(this.name)
-                .amount(this.amount)
-                .price(this.price)
-                .category(this.category).build();
+                .name(name)
+                .amount(amount)
+                .price(price)
+                .category(category).build();
     }
 }
