@@ -2,7 +2,6 @@ spring:
   profiles:
     default: dev
 
-
   jpa:
     hibernate:
       ddl-auto: create
@@ -16,3 +15,14 @@ logging:
     org.hibernate:
       type.descriptor.sql: trace #show parameter binding
       SQL: DEBUG
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver

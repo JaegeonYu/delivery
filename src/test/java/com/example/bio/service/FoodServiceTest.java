@@ -9,11 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.data.crossstore.ChangeSetPersister.*;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class FoodServiceTest {
     @Autowired
     private FoodService foodService;
