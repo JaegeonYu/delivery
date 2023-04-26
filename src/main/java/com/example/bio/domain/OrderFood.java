@@ -2,9 +2,11 @@ package com.example.bio.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class OrderFood {
     @Id
     @GeneratedValue

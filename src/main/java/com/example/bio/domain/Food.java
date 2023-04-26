@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Foods")
+@Table(name = "foods")
 @Getter
 @NoArgsConstructor
 public class Food {
@@ -26,8 +26,7 @@ public class Food {
     private Long price;
 
     private String category;
-    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
-    private List<OrderFood> orderFoods = new ArrayList<>();
+
 
     @Builder
     public Food(String name, Long amount, Long price, String category) {
