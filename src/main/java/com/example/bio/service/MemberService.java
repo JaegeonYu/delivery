@@ -23,6 +23,11 @@ public class MemberService {
         return member.getId();
     }
 
+    private void validateDuplicateMember(Member member) throws RuntimeException {
+        if (!memberRepository.findByName(member.getName()).isEmpty())
+            throw new RuntimeException("이미 존재하는 회원"); // TODO Exception 구현
+    }
+
     public Member findById(Long memberId) throws NotFoundException {
         Member member = memberRepository.findById(memberId).orElseThrow(NotFoundException::new);
         return member;
@@ -32,8 +37,5 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
-    private void validateDuplicateMember(Member member) throws RuntimeException {
-        if (!memberRepository.findById(member.getId()).isEmpty())
-            throw new RuntimeException("이미 존재하는 회원"); // TODO Exception 구현
-    }
+
 }
