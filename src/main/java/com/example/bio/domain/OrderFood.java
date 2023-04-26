@@ -1,8 +1,10 @@
 package com.example.bio.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Getter
@@ -21,7 +23,10 @@ public class OrderFood {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @NotNull @NumberFormat
     private int orderPrice;
+
+    @NotNull @NumberFormat
     private int count;
 
 }

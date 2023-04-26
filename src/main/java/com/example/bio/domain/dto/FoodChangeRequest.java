@@ -10,13 +10,13 @@ import org.springframework.format.annotation.NumberFormat;
 public class FoodChangeRequest {
     @NotNull
     @NumberFormat
-    private Long amount;
+    private int amount;
     @NotNull
     @NumberFormat
-    private Long price;
+    private int price;
 
     @Builder
-    public FoodChangeRequest(Long amount, Long price) {
+    public FoodChangeRequest(int amount, int price) {
         this.amount = amount;
         this.price = price;
     }
