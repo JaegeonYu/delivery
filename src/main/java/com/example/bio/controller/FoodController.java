@@ -18,7 +18,7 @@ import static org.springframework.data.crossstore.ChangeSetPersister.NotFoundExc
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/foods")
+@RequestMapping("/foods")
 public class FoodController {
     private final FoodService foodService;
 
