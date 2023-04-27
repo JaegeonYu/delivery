@@ -1,6 +1,5 @@
 package com.example.bio.controller;
 
-import com.example.bio.domain.Member;
 import com.example.bio.domain.dto.MemberRequest;
 import com.example.bio.domain.dto.MemberResponse;
 import com.example.bio.service.MemberService;
@@ -11,12 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.bio.domain.dto.MemberRequest.*;
-import static com.example.bio.domain.dto.MemberResponse.*;
+import static com.example.bio.domain.dto.MemberRequest.toEntity;
+import static com.example.bio.domain.dto.MemberResponse.toDto;
 
 @RestController
 @RequiredArgsConstructor
