@@ -17,4 +17,8 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
 
+    public void beOrder(Order order){
+        this.order = order;
+    }
+
 }
