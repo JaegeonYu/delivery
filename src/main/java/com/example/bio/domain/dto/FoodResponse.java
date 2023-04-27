@@ -10,9 +10,9 @@ public class FoodResponse {
 
     private String name;
 
-    private Long amount;
+    private int amount;
 
-    private Long price;
+    private int price;
 
     private String category;
 

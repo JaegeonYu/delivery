@@ -2,6 +2,7 @@ package com.example.bio.domain;
 
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor
+@Getter
 public class Order {
     @Id
     @GeneratedValue
@@ -22,7 +24,7 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderFood> orderFoods = new ArrayList<>();
 
     private LocalDateTime orderDate;

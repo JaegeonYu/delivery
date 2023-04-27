@@ -14,17 +14,17 @@ public class FoodRequest {
 
     @NotNull
     @NumberFormat
-    private Long amount;
+    private int amount;
 
     @NotNull
     @NumberFormat
-    private Long price;
+    private int price;
 
     @NotBlank
     private String category;
 
     @Builder
-    public FoodRequest(String name, Long amount, Long price, String category) {
+    public FoodRequest(String name, int amount, int price, String category) {
         this.name = name;
         this.amount = amount;
         this.price = price;

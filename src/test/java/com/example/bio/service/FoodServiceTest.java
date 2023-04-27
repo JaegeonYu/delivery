@@ -32,8 +32,8 @@ class FoodServiceTest {
         int beforeSize = foodRepository.findAll().size();
         Food food = Food.builder()
                 .name("water")
-                .amount(2L)
-                .price(5000L)
+                .amount(2)
+                .price(5000)
                 .category("liquid")
                 .build();
 
@@ -47,8 +47,8 @@ class FoodServiceTest {
     public void findTest() throws NotFoundException {
         Food food = Food.builder()
                 .name("water")
-                .amount(2L)
-                .price(5000L)
+                .amount(2)
+                .price(5000)
                 .category("liquid")
                 .build();
         foodRepository.save(food);
