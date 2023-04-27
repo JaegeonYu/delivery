@@ -40,11 +40,6 @@ public class Food {
         this.category = category;
     }
 
-    public FoodResponse toDto() {
-        return FoodResponse.builder()
-                .food(this).build();
-    }
-
     public void patch(FoodChangeRequest foodChangeRequest){
         this.amount = foodChangeRequest.getAmount();
         this.price = foodChangeRequest.getPrice();

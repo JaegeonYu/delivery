@@ -31,11 +31,11 @@ public class FoodRequest {
         this.category = category;
     }
 
-    public Food toEntity() {
+    public static Food toEntity(FoodRequest foodRequest) {
         return Food.builder()
-                .name(name)
-                .amount(amount)
-                .price(price)
-                .category(category).build();
+                .name(foodRequest.name)
+                .amount(foodRequest.getAmount())
+                .price(foodRequest.getPrice())
+                .category(foodRequest.getCategory()).build();
     }
 }

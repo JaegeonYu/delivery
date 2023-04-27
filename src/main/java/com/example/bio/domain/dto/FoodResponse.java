@@ -24,4 +24,10 @@ public class FoodResponse {
         this.price = food.getPrice();
         this.category = food.getCategory();
     }
+
+    public static FoodResponse toDto(Food food){
+        return FoodResponse.builder()
+                .food(food)
+                .build();
+    }
 }
