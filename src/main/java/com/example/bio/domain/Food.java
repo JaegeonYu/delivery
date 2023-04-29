@@ -2,6 +2,7 @@ package com.example.bio.domain;
 
 import com.example.bio.domain.dto.FoodChangeRequest;
 import com.example.bio.domain.dto.FoodResponse;
+import com.example.bio.exception.OutOfStuck;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -53,7 +54,7 @@ public class Food {
         int restAmount = this.amount - amount;
 
             if(restAmount < 0){
-            throw new RuntimeException("need more amount");
+            throw new OutOfStuck();
         }
 
         this.amount = restAmount;

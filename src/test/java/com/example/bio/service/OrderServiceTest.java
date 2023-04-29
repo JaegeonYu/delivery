@@ -1,6 +1,8 @@
 package com.example.bio.service;
 
 import com.example.bio.domain.*;
+import com.example.bio.exception.ExceptionControl;
+import com.example.bio.exception.OutOfStuck;
 import com.example.bio.repository.FoodRepository;
 import com.example.bio.repository.MemberRepository;
 import com.example.bio.repository.OrderRepository;
@@ -33,12 +35,14 @@ class OrderServiceTest {
         this.orderService = orderService;
         this.orderRepository = orderRepository;
     }
+
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         orderRepository.deleteAll();
         memberRepository.deleteAll();
         foodRepository.deleteAll();
     }
+
     @Test
     @DisplayName("음식주문 테스트")
     void orderFoodTest() throws NotFoundException {
@@ -66,25 +70,27 @@ class OrderServiceTest {
         int orderCount = 11;
 
         //when, then
-        Throwable exception = assertThrows(RuntimeException.class,
+        Throwable exception = assertThrows(OutOfStuck.class,
                 () -> orderService.order(member.getId(), food.getId(), orderCount));
 
-        Assertions.assertEquals(exception.getMessage(), "need more amount");
+        Assertions.assertEquals(ExceptionControl.OUT_OF_STOCK.getMessage(), "음식의 재고가 부족합니다.");
     }
 
     @Test
     @DisplayName("주문 취소 테스트")
     public void orderCancelTest() throws NotFoundException {
+        //given
         Member member = createMember();
         Food food = craeteFood("물", 1000, 5, "액체");
         int orderCount = 2;
 
         Long orderId = orderService.order(member.getId(), food.getId(), orderCount);
 
+        //when
         orderService.cancelOrder(orderId);
 
+        //then
         Order getOrder = orderRepository.findById(orderId).get();
-
         assertEquals(getOrder.getOrderStatus(), OrderStatus.CANCEL);
         assertEquals(food.getAmount(), 5);
     }
