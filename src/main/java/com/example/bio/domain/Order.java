@@ -1,5 +1,6 @@
 package com.example.bio.domain;
 
+import com.example.bio.exception.AlreadyDelivery;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -80,7 +81,7 @@ public class Order {
     }
     public void cancel(){
         if(delivery.getDeliveryStatus() == DeliveryStatus.COMPLETE){
-            throw new IllegalArgumentException("배송 완료 상품은 취소 불가"); // TODO 예외처리
+            throw new AlreadyDelivery(); // TODO 예외처리
         }
 
         this.changeStatus(OrderStatus.CANCEL);

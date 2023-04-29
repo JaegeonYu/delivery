@@ -42,14 +42,16 @@ class OrderServiceTest {
     @Test
     @DisplayName("음식주문 테스트")
     void orderFoodTest() throws NotFoundException {
+        //given
         Member member = createMember();
         Food food = craeteFood("물", 1000, 5, "액체");
         int orderCount = 2;
 
+        //when
         Long orderId = orderService.order(member.getId(), food.getId(), orderCount);
-
         Order getOrder = orderRepository.findById(orderId).get();
 
+        //then
         assertEquals(OrderStatus.ORDER, getOrder.getOrderStatus());
         assertEquals(getOrder.getTotalPrice(), 1000 * orderCount);
         assertEquals(food.getAmount(), 5 - orderCount);
@@ -58,10 +60,12 @@ class OrderServiceTest {
     @Test
     @DisplayName("재고수량 초과 주문 테스트")
     public void foodUnderFlowTest() throws NotFoundException {
+        //given
         Member member = createMember();
         Food food = craeteFood("pizza", 10000, 10, "양식");
         int orderCount = 11;
 
+        //when, then
         Throwable exception = assertThrows(RuntimeException.class,
                 () -> orderService.order(member.getId(), food.getId(), orderCount));
 

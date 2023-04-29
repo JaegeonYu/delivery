@@ -1,6 +1,9 @@
 package com.example.bio.service;
 
 import com.example.bio.domain.*;
+import com.example.bio.exception.NotFoundFood;
+import com.example.bio.exception.NotFoundMember;
+import com.example.bio.exception.NotFoundOrder;
 import com.example.bio.repository.FoodRepository;
 import com.example.bio.repository.MemberRepository;
 import com.example.bio.repository.OrderRepository;
@@ -21,9 +24,9 @@ public class OrderService {
 
     public Long order(Long memberId, Long foodId, int count) throws NotFoundException {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(NotFoundMember::new);
         Food food = foodRepository.findById(foodId)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(NotFoundFood::new);
 
         Delivery delivery = Delivery.builder()
                 .address(member.getAddress())
@@ -41,7 +44,7 @@ public class OrderService {
 
     @Transactional
     public void cancelOrder(Long orderId) throws NotFoundException {
-        Order order = orderRepository.findById(orderId).orElseThrow(NotFoundException::new);
+        Order order = orderRepository.findById(orderId).orElseThrow(NotFoundOrder::new);
         order.cancel();
     }
 }

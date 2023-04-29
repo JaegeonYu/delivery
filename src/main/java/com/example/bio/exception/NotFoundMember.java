@@ -2,10 +2,10 @@ package com.example.bio.exception;
 
 import static com.example.bio.exception.ExceptionControl.*;
 
-public class MemberNotFound extends ServiceException {
+public class NotFoundMember extends ServiceException {
     private static final String MESSAGE = MEMBER_NOT_FOUND.getMessage();
 
-    public MemberNotFound() {
+    public NotFoundMember() {
         super(MESSAGE);
     }
 

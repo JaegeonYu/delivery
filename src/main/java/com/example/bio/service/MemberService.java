@@ -1,6 +1,8 @@
 package com.example.bio.service;
 
 import com.example.bio.domain.Member;
+import com.example.bio.exception.AlreadyMember;
+import com.example.bio.exception.NotFoundMember;
 import com.example.bio.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,11 +27,11 @@ public class MemberService {
 
     private void validateDuplicateMember(Member member) throws RuntimeException {
         if (!memberRepository.findByName(member.getName()).isEmpty())
-            throw new RuntimeException("이미 존재하는 회원"); // TODO Exception 구현
+            throw new AlreadyMember(); // TODO Exception 구현
     }
 
     public Member findById(Long memberId) throws NotFoundException {
-        Member member = memberRepository.findById(memberId).orElseThrow(NotFoundException::new);
+        Member member = memberRepository.findById(memberId).orElseThrow(NotFoundMember::new);
         return member;
     }
 
