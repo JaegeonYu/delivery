@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderRepository extends JpaRepository<Order,Long> {
 
+    // MemberName, OrderStatus에 따른 검색 JPQL
 }

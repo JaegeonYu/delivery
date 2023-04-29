@@ -71,6 +71,7 @@ public class Order {
                 .build();
 
         Arrays.stream(orderFoods).forEach(order::conOrderFood);
+        order.conDelivery(delivery);
         return order;
     }
     // 비즈니스 로직
