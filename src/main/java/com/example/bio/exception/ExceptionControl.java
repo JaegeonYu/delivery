@@ -10,7 +10,8 @@ public enum ExceptionControl {
     MEMBER_NOT_FOUND("존재하지 않는 사용자입니다.", 404),
     ORDER_NOT_FOUND("존재하지 않는 주문입니다.", 404),
     ALREADY_MEMBER("이미 존재하는 이름입니다.", 409),
-    ALREADY_DELIVERY("배송완료된 상품은 취소가 불가합니다.", 403);
+    ALREADY_DELIVERY("배송완료된 상품은 취소가 불가합니다.", 403),
+    OUT_OF_STOCK("음식의 재고가 부족합니다.", 503);
 
 
     private final String Message;
