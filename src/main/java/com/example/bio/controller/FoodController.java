@@ -25,7 +25,7 @@ public class FoodController {
     private final FoodService foodService;
 
     @PostMapping()
-    public ResponseEntity<Long> postFood(@RequestBody @Valid FoodRequest foodRequest) {
+    public ResponseEntity<Long> postFood(@Valid FoodRequest foodRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(foodService.save(toEntity(foodRequest)));

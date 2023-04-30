@@ -16,7 +16,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping()
-    public ResponseEntity<Long> order(@RequestBody OrderRequest orderRequest) throws ChangeSetPersister.NotFoundException {
+    public ResponseEntity<Long> postOrder(@RequestBody OrderRequest orderRequest) throws ChangeSetPersister.NotFoundException {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(orderService.order(orderRequest.getMemberId(),

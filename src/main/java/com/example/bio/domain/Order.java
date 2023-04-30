@@ -72,6 +72,7 @@ public class Order {
                 .build();
 
         Arrays.stream(orderFoods).forEach(order::conOrderFood);
+        order.conMember(member);
         order.conDelivery(delivery);
         return order;
     }
@@ -81,7 +82,7 @@ public class Order {
     }
     public void cancel(){
         if(delivery.getDeliveryStatus() == DeliveryStatus.COMPLETE){
-            throw new AlreadyDelivery(); // TODO 예외처리
+            throw new AlreadyDelivery();
         }
 
         this.changeStatus(OrderStatus.CANCEL);
