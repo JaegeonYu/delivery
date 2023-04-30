@@ -10,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -25,12 +23,12 @@ public class MemberService {
         return member.getId();
     }
 
-    private void validateDuplicateMember(Member member) throws RuntimeException {
+    private void validateDuplicateMember(Member member) {
         if (!memberRepository.findByName(member.getName()).isEmpty())
-            throw new AlreadyMember(); // TODO Exception 구현
+            throw new AlreadyMember();
     }
 
-    public Member findById(Long memberId) throws NotFoundException {
+    public Member findById(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(NotFoundMember::new);
         return member;
     }

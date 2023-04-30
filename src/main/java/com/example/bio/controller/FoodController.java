@@ -32,23 +32,23 @@ public class FoodController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<FoodResponse>> getFoods(){
+    public ResponseEntity<List<FoodResponse>> getFoods() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(foodService.findAll().stream()
-                .map(FoodResponse::toDto)
-                .collect(Collectors.toList()));
+                        .map(FoodResponse::toDto)
+                        .collect(Collectors.toList()));
     }
 
     @GetMapping("/{foodId}")
-    public ResponseEntity<FoodResponse> getFood(@PathVariable Long foodId) throws NotFoundException {
+    public ResponseEntity<FoodResponse> getFood(@PathVariable Long foodId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(toDto(foodService.findById(foodId)));
     }
 
     @DeleteMapping("/{foodId}")
-    public ResponseEntity<Long> deleteFood(@PathVariable Long foodId) throws NotFoundException {
+    public ResponseEntity<Long> deleteFood(@PathVariable Long foodId) {
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body(foodService.delete(foodId));

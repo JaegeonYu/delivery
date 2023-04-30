@@ -22,7 +22,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final FoodRepository foodRepository;
 
-    public Long order(Long memberId, Long foodId, int count) throws NotFoundException {
+    public Long order(Long memberId, Long foodId, int count) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(NotFoundMember::new);
         Food food = foodRepository.findById(foodId)
@@ -43,7 +43,7 @@ public class OrderService {
     }
 
     @Transactional
-    public void cancelOrder(Long orderId) throws NotFoundException {
+    public void cancelOrder(Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(NotFoundOrder::new);
         order.cancel();
     }
