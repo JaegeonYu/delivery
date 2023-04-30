@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.bio.domain.dto.FoodRequest.*;
+import static com.example.bio.domain.dto.FoodResponse.*;
 import static org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/foods")
+@RequestMapping("/foods")
 public class FoodController {
     private final FoodService foodService;
 
@@ -26,7 +28,7 @@ public class FoodController {
     public ResponseEntity<Long> postFood(@RequestBody @Valid FoodRequest foodRequest) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(foodService.save(foodRequest.toEntity()));
+                .body(foodService.save(toEntity(foodRequest)));
     }
 
     @GetMapping()
@@ -34,7 +36,7 @@ public class FoodController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(foodService.findAll().stream()
-                .map(Food::toDto)
+                .map(FoodResponse::toDto)
                 .collect(Collectors.toList()));
     }
 
@@ -42,7 +44,7 @@ public class FoodController {
     public ResponseEntity<FoodResponse> getFood(@PathVariable Long foodId) throws NotFoundException {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(foodService.findById(foodId).toDto());
+                .body(toDto(foodService.findById(foodId)));
     }
 
     @DeleteMapping("/{foodId}")

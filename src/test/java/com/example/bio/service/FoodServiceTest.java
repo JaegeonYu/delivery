@@ -9,11 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.data.crossstore.ChangeSetPersister.*;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class FoodServiceTest {
     @Autowired
     private FoodService foodService;
@@ -30,8 +32,8 @@ class FoodServiceTest {
         int beforeSize = foodRepository.findAll().size();
         Food food = Food.builder()
                 .name("water")
-                .amount(2L)
-                .price(5000L)
+                .amount(2)
+                .price(5000)
                 .category("liquid")
                 .build();
 
@@ -45,8 +47,8 @@ class FoodServiceTest {
     public void findTest() throws NotFoundException {
         Food food = Food.builder()
                 .name("water")
-                .amount(2L)
-                .price(5000L)
+                .amount(2)
+                .price(5000)
                 .category("liquid")
                 .build();
         foodRepository.save(food);

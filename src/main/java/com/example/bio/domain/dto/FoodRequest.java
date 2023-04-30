@@ -11,28 +11,31 @@ import org.springframework.format.annotation.NumberFormat;
 public class FoodRequest {
     @NotBlank
     private String name;
+
     @NotNull
     @NumberFormat
-    private Long amount;
+    private int amount;
+
     @NotNull
     @NumberFormat
-    private Long price;
+    private int price;
+
     @NotBlank
     private String category;
 
     @Builder
-    public FoodRequest(String name, Long amount, Long price, String category) {
+    public FoodRequest(String name, int amount, int price, String category) {
         this.name = name;
         this.amount = amount;
         this.price = price;
         this.category = category;
     }
 
-    public Food toEntity() {
+    public static Food toEntity(FoodRequest foodRequest) {
         return Food.builder()
-                .name(this.name)
-                .amount(this.amount)
-                .price(this.price)
-                .category(this.category).build();
+                .name(foodRequest.name)
+                .amount(foodRequest.getAmount())
+                .price(foodRequest.getPrice())
+                .category(foodRequest.getCategory()).build();
     }
 }

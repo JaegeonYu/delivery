@@ -12,7 +12,7 @@ import java.util.List;
 import static org.springframework.data.crossstore.ChangeSetPersister.*;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class FoodService {
     private final FoodRepository foodRepositoryRepository;
 
@@ -21,22 +21,24 @@ public class FoodService {
         this.foodRepositoryRepository = productRepository;
     }
 
-    @Transactional(readOnly = true)
+
     public Food findById(Long foodId) throws NotFoundException {
         return foodRepositoryRepository.findById(foodId)
                 .orElseThrow(NotFoundException::new);
     }
 
+    @Transactional
     public Long save(Food food) {
         Food saveFood = foodRepositoryRepository.save(food);
         return saveFood.getId();
     }
 
-    @Transactional(readOnly = true)
+
     public List<Food> findAll() {
         return foodRepositoryRepository.findAll();
     }
 
+    @Transactional
     public Long delete(Long foodId) throws NotFoundException {
         Food findFood = foodRepositoryRepository.findById(foodId).
                 orElseThrow(NotFoundException::new);
@@ -45,6 +47,7 @@ public class FoodService {
         return foodId;
     }
 
+    @Transactional
     public Long patch(Long foodId, FoodChangeRequest foodChangeRequest) throws NotFoundException {
         Food findFood = foodRepositoryRepository.findById(foodId)
                 .orElseThrow(NotFoundException::new);

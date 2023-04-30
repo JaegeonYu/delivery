@@ -7,9 +7,13 @@ import lombok.Data;
 @Data
 public class FoodResponse {
     private Long id;
+
     private String name;
-    private Long amount;
-    private Long price;
+
+    private int amount;
+
+    private int price;
+
     private String category;
 
     @Builder
@@ -19,5 +23,11 @@ public class FoodResponse {
         this.amount = food.getAmount();
         this.price = food.getPrice();
         this.category = food.getCategory();
+    }
+
+    public static FoodResponse toDto(Food food){
+        return FoodResponse.builder()
+                .food(food)
+                .build();
     }
 }
