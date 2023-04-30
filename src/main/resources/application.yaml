@@ -4,11 +4,12 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true #To beautify or pretty print the SQL
         show_sql: true #show sql
+
 
 logging:
   level:
@@ -22,7 +23,8 @@ spring:
     activate:
       on-profile: test
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:testdb;
     username: sa
     password:
     driver-class-name: org.h2.Driver
+

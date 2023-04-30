@@ -33,7 +33,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
@@ -42,7 +42,7 @@ public class Order {
         this(member, LocalDateTime.now(), OrderStatus.ORDER, delivery);
     }
 
-    private Order(Member member, LocalDateTime orderDate, OrderStatus orderStatus, Delivery delivery) {
+    public Order(Member member, LocalDateTime orderDate, OrderStatus orderStatus, Delivery delivery) {
         this.member = member;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
@@ -60,10 +60,6 @@ public class Order {
         orderFood.beOrder(this);
     }
 
-    public void conDelivery(Delivery delivery){
-        this.delivery = delivery;
-        delivery.beOrder(this);
-    }
     // 생성 메서드
     public static Order createOrder(Member member, Delivery delivery, OrderFood... orderFoods){
         Order order = Order.builder()
@@ -72,8 +68,6 @@ public class Order {
                 .build();
 
         Arrays.stream(orderFoods).forEach(order::conOrderFood);
-        order.conMember(member);
-        order.conDelivery(delivery);
         return order;
     }
     // 비즈니스 로직

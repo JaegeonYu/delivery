@@ -8,11 +8,10 @@ import com.example.bio.repository.FoodRepository;
 import com.example.bio.repository.MemberRepository;
 import com.example.bio.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.data.crossstore.ChangeSetPersister.*;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -46,5 +45,9 @@ public class OrderService {
     public void cancelOrder(Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(NotFoundOrder::new);
         order.cancel();
+    }
+
+    public List<Order> findByNameAndStatus(String name, OrderStatus orderStatus){
+        return orderRepository.findQuery(name, orderStatus);
     }
 }

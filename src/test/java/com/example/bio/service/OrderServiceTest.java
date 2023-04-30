@@ -12,10 +12,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+import static com.example.bio.domain.OrderStatus.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.data.crossstore.ChangeSetPersister.*;
 
@@ -56,7 +58,7 @@ class OrderServiceTest {
         Order getOrder = orderRepository.findById(orderId).get();
 
         //then
-        assertEquals(OrderStatus.ORDER, getOrder.getOrderStatus());
+        assertEquals(ORDER, getOrder.getOrderStatus());
         assertEquals(getOrder.getTotalPrice(), 1000 * orderCount);
         assertEquals(food.getAmount(), 5 - orderCount);
     }
@@ -91,9 +93,31 @@ class OrderServiceTest {
 
         //then
         Order getOrder = orderRepository.findById(orderId).get();
-        assertEquals(getOrder.getOrderStatus(), OrderStatus.CANCEL);
+        assertEquals(getOrder.getOrderStatus(), CANCEL);
         assertEquals(food.getAmount(), 5);
     }
+
+    @Test
+    public void test(){
+        //given
+        Member member = createMember();
+        Food food = craeteFood("피자", 10000, 10, "양식");
+        int orderCount = 9;
+
+
+        Food food2 = craeteFood("물", 1000, 5, "액체");
+        int orderCount2 = 4;
+
+        //when
+        Long fistOrder = orderService.order(member.getId(), food.getId(), orderCount);
+        orderService.cancelOrder(fistOrder);
+        orderService.order(member.getId(), food2.getId(), orderCount2);
+
+        //then
+        Assertions.assertEquals(orderService.findByNameAndStatus("카리나", ORDER).stream().findFirst().get().getOrderStatus(), ORDER);
+        Assertions.assertEquals(orderService.findByNameAndStatus("카리나", CANCEL).stream().findFirst().get().getOrderStatus(), CANCEL);
+    }
+
 
     private Food craeteFood(String name, int price, int amount, String category) {
         Food food = Food.builder()

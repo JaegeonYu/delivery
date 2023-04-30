@@ -1,6 +1,5 @@
 package com.example.bio.domain.dto;
 
-import com.example.bio.domain.Order;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
