@@ -22,24 +22,31 @@ class FoodServiceTest {
 
     @Autowired
     private FoodRepository foodRepository;
+
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         foodRepository.deleteAll();
     }
+
     @Test
     @DisplayName("음식 작성 테스트")
     public void saveTest() {
+        int realAmount = 2;
+
         int beforeSize = foodRepository.findAll().size();
         Food food = Food.builder()
                 .name("water")
-                .amount(2)
+                .amount(realAmount)
                 .price(5000)
                 .category("liquid")
                 .build();
 
         foodService.save(food);
         int afterSize = foodRepository.findAll().size();
-        assertEquals(1, afterSize - beforeSize);
+
+
+        int beforeAfter = afterSize - beforeSize;
+        assertEquals(realAmount - 1, beforeAfter);
     }
 
     @Test

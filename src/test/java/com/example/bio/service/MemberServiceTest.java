@@ -2,6 +2,8 @@ package com.example.bio.service;
 
 import com.example.bio.domain.Address;
 import com.example.bio.domain.Member;
+import com.example.bio.exception.AlreadyMember;
+import com.example.bio.exception.ExceptionControl;
 import com.example.bio.repository.MemberRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.example.bio.exception.ExceptionControl.*;
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Transactional
@@ -67,9 +70,9 @@ class MemberServiceTest {
 
         memberService.join(member);
 
-        Throwable exception = assertThrows(RuntimeException.class,
+        Throwable exception = assertThrows(AlreadyMember.class,
                 () -> memberService.join(nameSamemember));
 
-        assertEquals("이미 존재하는 회원", exception.getMessage());
+        assertEquals(ALREADY_MEMBER.getMessage(), exception.getMessage());
     }
 }

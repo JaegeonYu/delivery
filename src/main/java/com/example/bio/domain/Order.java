@@ -1,5 +1,6 @@
 package com.example.bio.domain;
 
+import com.example.bio.exception.AlreadyDelivery;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,7 +33,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
@@ -41,7 +42,7 @@ public class Order {
         this(member, LocalDateTime.now(), OrderStatus.ORDER, delivery);
     }
 
-    private Order(Member member, LocalDateTime orderDate, OrderStatus orderStatus, Delivery delivery) {
+    public Order(Member member, LocalDateTime orderDate, OrderStatus orderStatus, Delivery delivery) {
         this.member = member;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
@@ -59,10 +60,6 @@ public class Order {
         orderFood.beOrder(this);
     }
 
-    public void conDelivery(Delivery delivery){
-        this.delivery = delivery;
-        delivery.beOrder(this);
-    }
     // 생성 메서드
     public static Order createOrder(Member member, Delivery delivery, OrderFood... orderFoods){
         Order order = Order.builder()
@@ -79,7 +76,7 @@ public class Order {
     }
     public void cancel(){
         if(delivery.getDeliveryStatus() == DeliveryStatus.COMPLETE){
-            throw new IllegalArgumentException("배송 완료 상품은 취소 불가"); // TODO 예외처리
+            throw new AlreadyDelivery();
         }
 
         this.changeStatus(OrderStatus.CANCEL);

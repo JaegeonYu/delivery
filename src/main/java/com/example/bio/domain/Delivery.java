@@ -20,8 +20,7 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
     @Builder
-    public Delivery(Order order, Address address, DeliveryStatus deliveryStatus) {
-        this.order = order;
+    public Delivery(Address address, DeliveryStatus deliveryStatus) {
         this.address = address;
         this.deliveryStatus = deliveryStatus;
     }

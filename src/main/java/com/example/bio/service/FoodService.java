@@ -2,6 +2,7 @@ package com.example.bio.service;
 
 import com.example.bio.domain.Food;
 import com.example.bio.domain.dto.FoodChangeRequest;
+import com.example.bio.exception.NotFoundFood;
 import com.example.bio.repository.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,9 @@ public class FoodService {
     }
 
 
-    public Food findById(Long foodId) throws NotFoundException {
+    public Food findById(Long foodId) {
         return foodRepositoryRepository.findById(foodId)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(NotFoundFood::new);
     }
 
     @Transactional
@@ -39,18 +40,18 @@ public class FoodService {
     }
 
     @Transactional
-    public Long delete(Long foodId) throws NotFoundException {
+    public Long delete(Long foodId) {
         Food findFood = foodRepositoryRepository.findById(foodId).
-                orElseThrow(NotFoundException::new);
+                orElseThrow(NotFoundFood::new);
 
         foodRepositoryRepository.deleteById(foodId);
         return foodId;
     }
 
     @Transactional
-    public Long patch(Long foodId, FoodChangeRequest foodChangeRequest) throws NotFoundException {
+    public Long patch(Long foodId, FoodChangeRequest foodChangeRequest) {
         Food findFood = foodRepositoryRepository.findById(foodId)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(NotFoundFood::new);
 
         findFood.patch(foodChangeRequest); // dirty check
         return foodId;
